@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.hf.buyproductsapi.domain.Categoria;
 import com.hf.buyproductsapi.repositories.CategoriaRepository;
-import com.hf.buyproductsapi.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -15,9 +14,8 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repo;
 
-	public Categoria find(Integer id) {
+	public Categoria buscar(Integer id) {
 		Optional<Categoria> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Object don't find! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+		return obj.orElse(null);
 	}
 }
