@@ -1,5 +1,6 @@
 package com.hf.buyproductsapi.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.hf.buyproductsapi.domain.Categoria;
+import com.hf.buyproductsapi.dto.CategoriaDTO;
 import com.hf.buyproductsapi.repositories.CategoriaRepository;
 import com.hf.buyproductsapi.services.exceptions.DataIntegrityException;
 import com.hf.buyproductsapi.services.exceptions.ObjectNotFoundException;
@@ -34,11 +36,15 @@ public class CategoriaService {
 	}
 
 	public void delete(Integer id) {
-		find(id);	
+		find(id);
 		try {
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 }
