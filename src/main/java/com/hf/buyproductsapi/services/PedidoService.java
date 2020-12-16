@@ -13,7 +13,6 @@ import com.hf.buyproductsapi.domain.enums.EstadoPagamento;
 import com.hf.buyproductsapi.repositories.ItemPedidoRepository;
 import com.hf.buyproductsapi.repositories.PagamentoRepository;
 import com.hf.buyproductsapi.repositories.PedidoRepository;
-import com.hf.buyproductsapi.repositories.ProdutoRepository;
 import com.hf.buyproductsapi.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -65,7 +64,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
-		emailService.sendOrderConfirmationEmail(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
 }
