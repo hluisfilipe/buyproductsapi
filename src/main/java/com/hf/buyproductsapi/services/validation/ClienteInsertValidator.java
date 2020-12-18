@@ -9,11 +9,9 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hf.buyproductsapi.domain.Cliente;
-import com.hf.buyproductsapi.domain.enums.TipoCliente;
 import com.hf.buyproductsapi.dto.ClienteNewDTO;
 import com.hf.buyproductsapi.repositories.ClienteRepository;
 import com.hf.buyproductsapi.resources.exception.FieldMessage;
-import com.hf.buyproductsapi.services.validation.utils.BR;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 
