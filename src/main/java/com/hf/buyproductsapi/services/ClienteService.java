@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hf.buyproductsapi.domain.Cidade;
 import com.hf.buyproductsapi.domain.Cliente;
 import com.hf.buyproductsapi.domain.Endereco;
+import com.hf.buyproductsapi.domain.enums.Perfil;
 import com.hf.buyproductsapi.domain.enums.TipoCliente;
 import com.hf.buyproductsapi.dto.ClienteDTO;
 import com.hf.buyproductsapi.dto.ClienteNewDTO;
 import com.hf.buyproductsapi.repositories.ClienteRepository;
 import com.hf.buyproductsapi.repositories.EnderecoRepository;
+import com.hf.buyproductsapi.security.UserSS;
+import com.hf.buyproductsapi.services.exceptions.AuthorizationException;
 import com.hf.buyproductsapi.services.exceptions.DataIntegrityException;
 
 @Service
@@ -35,6 +38,13 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElse(null);
 	}
